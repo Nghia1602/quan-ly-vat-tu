@@ -1,85 +1,129 @@
-  import React, { useState } from "react";
-  import {
-    BoldOutlined,
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-  } from "@ant-design/icons";
-  import { Breadcrumb, Layout, Menu, theme } from "antd";
+import React, { useState } from "react";
+import {
+  BoldOutlined,
+  DesktopOutlined,
+  FileOutlined,
+  PieChartOutlined,
+  TeamOutlined,
+  UserOutlined,
+  BellOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
 
-  const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 
-  // Hàm tạo item cho Menu (JSX thuần, không type)
-  function getItem(label, key, icon, children) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-    };
-  }
+// Hàm tạo item cho Menu (JSX thuần, không type)
+function getItem(label, key, icon, children) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  };
+}
 
-  // Danh sách menu
-  const items = [
-    getItem("Trang chủ", "1", <PieChartOutlined />),
-    getItem("Danh sách", "2", <DesktopOutlined />),
-    getItem("User", "sub1", <UserOutlined />, [
-      getItem("A", "3"),
-      getItem("B", "4"),
-      getItem("C", "5"),
-    ]),
-    getItem("Team", "sub2", <TeamOutlined />, [
-      getItem("Team 1", "6"),
-      getItem("Team 2", "8"),
-    ]),
-    getItem("Files", "9", <FileOutlined />),
-  ];
+// Danh sách menu
+const items = [
+  getItem("Trang chủ", "1", <HomeOutlined />),
+  getItem("Nguyên vật liệu", "2", <DesktopOutlined />),
+  getItem("ĐỊnh mức vật tư", "3", <BoldOutlined />),
+  getItem("Nhân sự", "4", <BoldOutlined />),
+  getItem("Quản lý dự án", "5", <BoldOutlined />),
+  getItem("Danh sách yêu cầu", "sub1", <UserOutlined />, [
+    getItem("Tạo mới vật tư", "6"),
+    getItem("Chỉnh sửa vật tư", "7"),
+    getItem("Ngừng cung cấp vật tư", "8"),
+  ]),
+  getItem("Thống kê", "9", <TeamOutlined />),
+  getItem("Files", "11", <FileOutlined />),
+];
 
-  function App() {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-      token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+function App() {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
-    return (
-      <Layout style={{ minHeight: "99vh" }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+  return (
+    <Layout style={{ minHeight: "99vh", background: "white" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        style={{ background: "white" }}
+      >
+        {/* <div className="demo-logo-vertical" /> */}
+        <Menu
+          theme="light"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+        />
+      </Sider>
+
+      <Layout style={{}}>
+        <Header
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+            borderBottom: "1px solid #3333",
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom:"10px",
+          }}
         >
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="dark"
-            defaultSelectedKeys={["1"]}
-            mode="inline"
-            items={items}
-          />
-        </Sider>
-
-        <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
-            <span style={{ textTransform: "uppercase", fontFamily: "Arial, sans-serif", fontWeight:"bold", color: "blue", fontSize: 20, padding: 16}}>Phần mềm quản lý vật tư |</span>
-          </Header>
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb
-              style={{ margin: "16px 0" }}
-              items={[{ title: "User" }, { title: "Bill" }]}
-            />
-            <div
+          <div>
+            <span
               style={{
-                padding: 24,
-                minHeight: 360,
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
+                textTransform: "uppercase",
+                fontFamily: "Arial, sans-serif",
+                fontWeight: "bold",
+                color: "blue",
+                fontSize: 20,
+                padding: 16,
               }}
             >
-              Content
-            </div>
-          </Content>
-          <Footer
+              Phần mềm quản lý vật tư |
+            </span>
+          </div>
+          <div>
+            <BellOutlined
+              style={{
+                alignItems: "center",
+                marginLeft: "1px",
+                marginRight: "20px",
+                fontSize: "25px",
+              }}
+            />
+            <UserOutlined
+              style={{
+                alignItems: "center",
+                marginLeft: "1px",
+                marginRight: "20px",
+                fontSize: "25px",
+              }}
+            />
+          </div>
+        </Header>
+        <Content style={{ margin: "0 10px" }}>
+          {/* <Breadcrumb
+              style={{ margin: "16px 0" }}
+              items={[{ title: "User" }, { title: "Bill" }]}
+            /> */}
+          <div
+            style={{
+              padding: 24,
+              minHeight: 360,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+              
+            }}
+          >
+            Content
+          </div>
+        </Content>
+        {/* <Footer
             style={{
               height: "40px", // chiều cao hợp lý (vd: 200px)
               width: "100%", // full chiều ngang
@@ -91,11 +135,11 @@
               fontSize: "20px",
             }}
           >
-            <span style={{}}>Ant Design ©{new Date().getFullYear()} Created by Ant UED</span>
-          </Footer>
-        </Layout>
+            
+          </Footer> */}
       </Layout>
-    );
-  }
+    </Layout>
+  );
+}
 
-  export default App;
+export default App;
