@@ -8,9 +8,21 @@ import {
   UserOutlined,
   BellOutlined,
   HomeOutlined,
+  GoldOutlined,
+  BarChartOutlined,
+  ProfileFilled,
+  MedicineBoxFilled,
+  UnorderedListOutlined,
+  HomeFilled,
+  SignalFilled,
+  GoldFilled,
+  ClusterOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-
+import { InputSearch, FilterButtons } from "./pages/materials/materials";
+import TableMaterials from "./pages/materials/tableMaterials";
+import Routers from "./routers/routers";
+import { BrowserRouter, Link } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 // Hàm tạo item cho Menu (JSX thuần, không type)
@@ -25,18 +37,38 @@ function getItem(label, key, icon, children) {
 
 // Danh sách menu
 const items = [
-  getItem("Trang chủ", "1", <HomeOutlined />),
-  getItem("Nguyên vật liệu", "2", <DesktopOutlined />),
-  getItem("ĐỊnh mức vật tư", "3", <BoldOutlined />),
-  getItem("Nhân sự", "4", <BoldOutlined />),
-  getItem("Quản lý dự án", "5", <BoldOutlined />),
-  getItem("Danh sách yêu cầu", "sub1", <UserOutlined />, [
-    getItem("Tạo mới vật tư", "6"),
-    getItem("Chỉnh sửa vật tư", "7"),
-    getItem("Ngừng cung cấp vật tư", "8"),
-  ]),
-  getItem("Thống kê", "9", <TeamOutlined />),
-  getItem("Files", "11", <FileOutlined />),
+  getItem(
+    <Link to="/home">Trang chủ</Link>,
+    "1",
+    <HomeFilled style={{ fontSize: "16px" }} />
+  ),
+  getItem(
+    <Link to="nguyenvatlieu">Nguyên vật liệu</Link>,
+    "2",
+    <GoldFilled style={{ fontSize: "16px" }} />
+  ),
+  getItem(
+    "Định mức vật tư",
+    "3",
+    <BarChartOutlined style={{ fontSize: "16px" }} />
+  ),
+  getItem("Nhân sự", "4", <TeamOutlined style={{ fontSize: "16px" }} />),
+  getItem(
+    "Quản lý dự án",
+    "5",
+    <ClusterOutlined style={{ fontSize: "16px" }} />
+  ),
+  getItem(
+    "Danh sách yêu cầu",
+    "sub1",
+    <UnorderedListOutlined style={{ fontSize: "16px" }} />,
+    [
+      getItem("Tạo mới vật tư", "6"),
+      getItem("Chỉnh sửa vật tư", "7"),
+      getItem("Ngừng cung cấp vật tư", "8"),
+    ]
+  ),
+  getItem("Thống kê", "9", <SignalFilled style={{ fontSize: "16px" }} />),
 ];
 
 function App() {
@@ -70,7 +102,7 @@ function App() {
             borderBottom: "1px solid #3333",
             display: "flex",
             justifyContent: "space-between",
-            marginBottom:"10px",
+            marginBottom: "10px",
           }}
         >
           <div>
@@ -106,22 +138,22 @@ function App() {
             />
           </div>
         </Header>
-        <Content style={{ margin: "0 10px" }}>
+        <Content
+          style={{
+            margin: "0 10px",
+            padding: "5px",
+            // minHeight: 360,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
           {/* <Breadcrumb
               style={{ margin: "16px 0" }}
               items={[{ title: "User" }, { title: "Bill" }]}
             /> */}
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-              
-            }}
-          >
-            Content
-          </div>
+          
+            <Routers />
+          
         </Content>
         {/* <Footer
             style={{
